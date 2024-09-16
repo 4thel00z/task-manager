@@ -1,0 +1,20 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with 
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Database file
+tasks.db
+
+# Docker files
+docker-compose.override.yml
+.idea
+bin
