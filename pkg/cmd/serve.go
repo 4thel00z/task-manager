@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 	"log"
 
-	"github.com/4thel00z/task-manager/internal"
+	"github.com/4thel00z/task-manager/pkg"
 	"github.com/kataras/iris/v12"
 )
 
@@ -32,10 +32,10 @@ var ServeCmd = &cobra.Command{
 		// Initialize the database with context
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
-		db := internal.NewDatabase(ctx, "tasks.db")
+		db := pkg.NewDatabase(ctx, "tasks.db")
 
 		// Initialize Kafka producer
-		kafka := internal.NewKafkaProducer([]string{"localhost:9092"})
+		kafka := pkg.NewKafkaProducer([]string{"localhost:9092"})
 		defer func() {
 			if err := kafka.Producer.Close(); err != nil {
 				log.Printf("Error closing Kafka producer: %v", err)
@@ -43,10 +43,10 @@ var ServeCmd = &cobra.Command{
 		}()
 
 		// Initialize middleware
-		middleware := internal.NewMiddleware()
+		middleware := pkg.NewMiddleware()
 
 		// Initialize handlers
-		handlers := internal.NewHandlers(db, kafka, "tasks")
+		handlers := pkg.NewHandlers(db, kafka, "tasks")
 
 		// Initialize Iris application
 		app := iris.New()

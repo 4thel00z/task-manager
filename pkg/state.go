@@ -1,4 +1,4 @@
-package internal
+package pkg
 
 // IsValidTransition checks if moving from current to new state is valid
 func IsValidTransition(current, new TaskState) bool {

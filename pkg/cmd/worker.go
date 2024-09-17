@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/4thel00z/task-manager/internal"
+	"github.com/4thel00z/task-manager/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -17,10 +17,10 @@ var WorkerCmd = &cobra.Command{
 		// Initialize the database with context
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
-		db := internal.NewDatabase(ctx, "tasks.db")
+		db := pkg.NewDatabase(ctx, "tasks.db")
 
 		// Initialize Kafka consumer
-		kafkaConsumer := internal.NewKafkaConsumer([]string{"localhost:9092"})
+		kafkaConsumer := pkg.NewKafkaConsumer([]string{"localhost:9092"})
 		defer func() {
 			if err := kafkaConsumer.Consumer.Close(); err != nil {
 				log.Printf("Error closing Kafka consumer: %v", err)
@@ -28,7 +28,7 @@ var WorkerCmd = &cobra.Command{
 		}()
 
 		// Initialize worker
-		worker := internal.NewWorker(db, kafkaConsumer, "tasks")
+		worker := pkg.NewWorker(db, kafkaConsumer, "tasks")
 
 		// Start consuming tasks
 		worker.Kafka.ConsumeTasks(worker.KafkaTopic, worker.ProcessTask)

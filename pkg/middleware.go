@@ -1,4 +1,4 @@
-package internal
+package pkg
 
 import (
 	"github.com/kataras/iris/v12"
