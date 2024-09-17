@@ -12,7 +12,7 @@ Setup:
 ```
 docker compose up -d
 rpk topic create tasks
-go install ./...
+go install github.com/4thel00z/task-manager/...@latest
 ```
 
 Start up the server via:
