@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/4thel00z/task-manager/internal/cmd"
+	"github.com/4thel00z/task-manager/pkg/cmd"
 	"github.com/spf13/cobra"
 	"log"
 )
