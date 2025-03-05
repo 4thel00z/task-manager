@@ -1,4 +1,5 @@
 # task-manager
+![Logo](./logo.png)
 
 ## Motivation
 
